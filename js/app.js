@@ -15,11 +15,11 @@ $(document).ready(function(){
           dataType: "json",
           
           beforeSend: function(){
-            $("#loader").show();
+            $("#view").show();
           },
           
           complete: function(){
-            $("#loader").hide();
+            $("#view").hide();
           },
           
           success: function(news){
@@ -28,9 +28,11 @@ $(document).ready(function(){
             
             for(var i in latestNews){
               output +=`
-                <div class="col l6  ">
+                <div class="col l6 m6 s12">
                 <h4>${latestNews[i].title}</h4>
-                <img src="${latestNews[i].urlToImage}" class="responsive-img">
+                <div>
+                <img src="${latestNews[i].urlToImage}" class="card" style="width: 20rem">
+                </div>
                 <p>${latestNews[i].description}</p>
                 <p>${latestNews[i].content}</p>
                 <p>Published on: ${latestNews[i].publishedAt}</p>
@@ -40,14 +42,10 @@ $(document).ready(function(){
             }
             
             if(output !== ""){
-              $("#newsResults").html(output);
+              $("#viewResults").html(output);
             }else{
               let noNews = `<div style='text-align:center; font-size:36px; margin-top:40px;'>This news isn't available. Sorry about that.<br>Try searching for something else </div>`;
-               $("#newsResults").html(noNews);
-              M.toast({
-                html: "This news isn't available",
-                classes: 'red'
-              });
+               $("#viewResults").html(noNews);
             }
             
           },
@@ -58,7 +56,7 @@ $(document).ready(function(){
              <img src="img/internet.png" class="responsive-img">
              </div>`;
              
-            $("#newsResults").html(internetFailure);
+            $("#viewResults").html(internetFailure);
           }
           
           
@@ -66,7 +64,7 @@ $(document).ready(function(){
         
       }else{
         let missingVal = `<div style="font-size:34px; text-align:center; margin-top:40px;">Please enter any search term in the search engine</div>`;
-        $("#newsResults").html(missingVal);
+        $("#viewResults").html(missingVal);
          M.toast({
                 html: "Please enter something",
                 classes: 'red'
